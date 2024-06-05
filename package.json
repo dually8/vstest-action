@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "SET NODE_OPTIONS=--openssl-legacy-provider && ncc build src\\index.ts",
+    "build": "ncc build src/index.ts",
     "test": "jest vstest.tests.ts --coverage",
     "functional-test": "jest vstest.spec.ts"
   },
@@ -8,13 +8,13 @@
     "@actions/artifact": "^0.5.2",
     "@actions/core": "^1.2.6",
     "@actions/exec": "^1.1.0",
-    "@actions/github": "^1.1.0",
+    "@actions/github": "^6.0.0",
     "@actions/glob": "^0.1.0",
     "@actions/http-client": "^1.0.8",
     "@actions/io": "^1.0.2",
     "@types/jest-when": "^3.5.0",
     "@types/mock-fs": "^4.13.1",
-    "fast-xml-parser": "^3.15.1",
+    "fast-xml-parser": "^4.4.0",
     "node": "^17.7.2",
     "semver": "^6.3.0",
     "xmlbuilder": "^13.0.2"
@@ -26,7 +26,7 @@
     "@types/jest": "^27.5.0",
     "@types/node": "^12.12.62",
     "@types/semver": "^6.2.2",
-    "@zeit/ncc": "^0.21.1",
+    "@vercel/ncc": "^0.38.1",
     "jest": "^27.5.1",
     "jest-mock-extended": "^2.0.5",
     "jest-when": "^3.5.1",
