@@ -20,11 +20,11 @@ export async function run() {
 
     core.info(`Downloading test tools...`);
     let workerZipPath = path.join(__dirname, 'win-x64.zip')
-    await exec.exec(`powershell Invoke-WebRequest -Uri "https://aka.ms/local-worker-win-x64" -OutFile ${workerZipPath}`);
+    await exec.exec(`pwsh`, ['-Command', 'Invoke-WebRequest', '-Uri', 'https://aka.ms/local-worker-win-x64', '-OutFile', `${workerZipPath}`]);
 
     core.info(`Unzipping test tools...`);
     core.debug(`workerZipPath is ${workerZipPath}`);
-    await exec.exec(`powershell Expand-Archive -Path ${workerZipPath} -DestinationPath ${__dirname}`);
+    await exec.exec(`pwsh`, ['-Command', 'Expand-Archive', '-Path', `${workerZipPath}`, '-DestinationPath', `${__dirname}`]);
 
     let vsTestPath = getVsTestPath();
     core.debug(`VsTestPath: ${vsTestPath}`);
@@ -35,14 +35,22 @@ export async function run() {
     core.info(`Running tests...`);
     await exec.exec(`${vsTestPath} ${testFiles.join(' ')} ${args} /Logger:TRX`);
   } catch (err) {
-    core.setFailed(err.message)
+    if (err instanceof Error) {
+      core.setFailed(err.message);
+    } else {
+      core.setFailed(String(err));
+    }
   }
 
   // Always attempt to upload test result artifact
   try {
     await uploadArtifact();
   } catch (err) {
-    core.setFailed(err.message)
+    if (err instanceof Error) {
+      core.setFailed(err.message);
+    } else {
+      core.setFailed(String(err));
+    }
   }
 }
 

@@ -8,10 +8,14 @@ export async function getTestAssemblies(): Promise<string[]> {
 
     core.debug(`Pattern to search test assemblies: ${searchFolder + testAssembly}`)
     const searchResult = await findFilesToUpload(searchFolder + testAssembly)
-    
+
     return searchResult.filesToUpload
   } catch (err) {
-    core.setFailed(err.message)
+    if (err instanceof Error) {
+      core.setFailed(err.message);
+    } else {
+      core.setFailed(String(err));
+    }
   }
   return []
 }

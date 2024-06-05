@@ -29,10 +29,6 @@ function getDefaultGlobOptions(): glob.GlobOptions {
  * Example 2: The patterns `~/foo/bar/*` and `~/foo/voo/two/*` and `~/foo/mo/` returns `~/foo`
  */
 function getMultiPathLCA(searchPaths: string[]): string {
-  // if (searchPaths.length < 2) {
-  //   throw new Error('At least two search paths must be provided')
-  // }
-
   const commonPaths = new Array<string>()
   const splitPaths = new Array<string[]>()
   let smallestPathLength = Number.MAX_SAFE_INTEGER
